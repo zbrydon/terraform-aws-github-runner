@@ -180,6 +180,7 @@ module "runners" {
   runner_architecture       = var.runner_architecture
   ami_filter                = var.ami_filter
   ami_owners                = var.ami_owners
+  ami_id_ssm_parameter_arn  = var.ami_id_ssm_parameter_arn
   ami_id_ssm_parameter_name = var.ami_id_ssm_parameter_name
   ami_kms_key_arn           = var.ami_kms_key_arn
 

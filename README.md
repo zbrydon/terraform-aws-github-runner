@@ -240,6 +240,7 @@ Join our discord community via [this invite link](https://discord.gg/bxgXW8jJGh)
 | Name | Description |
 |------|-------------|
 | <a name="output_binaries_syncer"></a> [binaries\_syncer](#output\_binaries\_syncer) | n/a |
+| <a name="output_deprecated_variables_warning"></a> [deprecated\_variables\_warning](#output\_deprecated\_variables\_warning) | Warning for deprecated variables usage |
 | <a name="output_instance_termination_handler"></a> [instance\_termination\_handler](#output\_instance\_termination\_handler) | n/a |
 | <a name="output_instance_termination_watcher"></a> [instance\_termination\_watcher](#output\_instance\_termination\_watcher) | n/a |
 | <a name="output_queues"></a> [queues](#output\_queues) | SQS queues. |

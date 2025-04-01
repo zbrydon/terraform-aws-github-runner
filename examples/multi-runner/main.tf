@@ -1,6 +1,15 @@
+data "aws_ssm_parameter" "al2023_arm" {
+  name = "/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-6.1-x86_64"
+}
+
 locals {
   environment = var.environment != null ? var.environment : "multi-runner"
   aws_region  = var.aws_region
+
+  # create map only with amazon linux 2023 x64 ami id
+  ssm_ami_ids = {
+    "linux-x64" = data.aws_ssm_parameter.al2023_arm.arn
+  }
 
   # Load runner configurations from Yaml files
   multi_runner_config_files = {
@@ -19,6 +28,7 @@ locals {
           {
             subnet_ids = lookup(v.runner_config, "subnet_ids", null) != null ? [module.base.vpc.private_subnets[0]] : null
             vpc_id     = lookup(v.runner_config, "vpc_id", null) != null ? module.base.vpc.vpc_id : null
+            ami_id_ssm_parameter_arn = lookup(local.ssm_ami_ids, k, null) != null ? local.ssm_ami_ids[k] : null
           }
         )
       }

@@ -75,3 +75,10 @@ output "instance_termination_handler" {
     lambda_role      = module.instance_termination_watcher[0].spot_termination_handler.lambda_role
   } : null
 }
+
+output "deprecated_variables_warning" {
+  description = "Warning for deprecated variables usage"
+  value = join("", [
+    var.ami_id_ssm_parameter_name != null ? "DEPRECATION WARNING: The variable 'ami_id_ssm_parameter_name' is deprecated and will be removed in a future version. Please use 'ami_id_ssm_parameter_arn' instead.\n" : "",
+  ])
+}

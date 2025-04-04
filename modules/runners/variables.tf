@@ -142,12 +142,6 @@ variable "ami_owners" {
   default     = ["amazon"]
 }
 
-variable "ami_id_ssm_parameter_arn" {
-  description = "[DEPRECATED: Use ami.id_ssm_parameter_arn] ARN of the SSM parameter (of data type aws:ec2:image) that contains the AMI ID to launch runner instances from. Overrides ami_filter"
-  type        = string
-  default     = null
-}
-
 variable "ami_id_ssm_parameter_name" {
   description = "[DEPRECATED: Use ami.id_ssm_parameter_name] Externally managed SSM parameter (of data type aws:ec2:image) that contains the AMI ID to launch runner instances from. Overrides ami_filter"
   type        = string

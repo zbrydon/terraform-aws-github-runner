@@ -42,7 +42,7 @@ locals {
     filter                = var.ami_filter
     owners                = var.ami_owners
     id_ssm_parameter_name = var.ami_id_ssm_parameter_name
-    id_ssm_parameter_arn  = var.ami_id_ssm_parameter_arn
+    id_ssm_parameter_arn = null
     kms_key_arn          = var.ami_kms_key_arn
   }
   ami_kms_key_arn           = local.ami_config.kms_key_arn != null ? local.ami_config.kms_key_arn : ""
@@ -170,7 +170,7 @@ resource "aws_launch_template" "runner" {
   }
 
   instance_initiated_shutdown_behavior = "terminate"
-  image_id                             = "resolve:ssm:${local.ami_id_ssm_module_managed ? aws_ssm_parameter.runner_ami_id[0].arn : var.ami_id_ssm_parameter_arn}"
+  image_id                             = "resolve:ssm:${local.ami_id_ssm_module_managed ? aws_ssm_parameter.runner_ami_id[0].arn : var.ami.id_ssm_parameter_arn}"
   key_name                             = var.key_name
   ebs_optimized                        = var.ebs_optimized
 

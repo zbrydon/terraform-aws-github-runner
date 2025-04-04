@@ -83,7 +83,6 @@ variable "multi_runner_config" {
       # Deprecated: Use ami object instead
       ami_filter                              = optional(map(list(string)), { state = ["available"] })
       ami_owners                              = optional(list(string), ["amazon"])
-      ami_id_ssm_parameter_arn                = optional(string, null)
       ami_id_ssm_parameter_name               = optional(string, null)
       ami_kms_key_arn                         = optional(string, "")
       create_service_linked_role_spot         = optional(bool, false)

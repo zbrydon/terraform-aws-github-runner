@@ -73,7 +73,7 @@ output "deprecated_variables_warning" {
   value = join("", [
     for key, runner_config in var.multi_runner_config : (
       try(runner_config.ami_id_ssm_parameter_name, null) != null ?
-      "DEPRECATION WARNING: The variable 'ami_id_ssm_parameter_name' in runner '${key}' is deprecated and will be removed in a future version. Please use 'ami_id_ssm_parameter_arn' instead.\n" :
+      "DEPRECATION WARNING: The variable 'ami_id_ssm_parameter_name' in runner '${key}' is deprecated and will be removed in a future version. Please use 'ami.id_ssm_parameter_arn' instead.\n" :
       ""
     )
   ])

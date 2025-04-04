@@ -79,6 +79,6 @@ output "instance_termination_handler" {
 output "deprecated_variables_warning" {
   description = "Warning for deprecated variables usage"
   value = join("", [
-    var.ami_id_ssm_parameter_name != null ? "DEPRECATION WARNING: The variable 'ami_id_ssm_parameter_name' is deprecated and will be removed in a future version. Please use 'ami_id_ssm_parameter_arn' instead.\n" : "",
+    var.ami_id_ssm_parameter_name != null ? "DEPRECATION WARNING: The variable 'ami_id_ssm_parameter_name' is deprecated and will be removed in a future version. Please use 'ami.id_ssm_parameter_arn' instead.\n" : "",
   ])
 }

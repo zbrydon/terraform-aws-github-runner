@@ -401,12 +401,6 @@ variable "ami_id_ssm_parameter_name" {
   default     = null
 }
 
-variable "ami_id_ssm_parameter_arn" {
-  description = "[DEPRECATED: Use ami.id_ssm_parameter_arn] Arn of the SSM parameter used to resolve the AMI ID for the runner instances. The SSM parameter should be of type String and contain a valid AMI ID."
-  type        = string
-  default     = null
-}
-
 variable "ami_kms_key_arn" {
   description = "[DEPRECATED: Use ami.kms_key_arn] Optional CMK Key ARN to be used to launch an instance from a shared encrypted AMI"
   type        = string

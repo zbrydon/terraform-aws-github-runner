@@ -51,8 +51,8 @@ locals {
         runner_config = merge(
           v.runner_config,
           {
-            subnet_ids               = lookup(v.runner_config, "subnet_ids", null) != null ? [module.base.vpc.private_subnets[0]] : null
-            vpc_id                   = lookup(v.runner_config, "vpc_id", null) != null ? module.base.vpc.vpc_id : null
+            subnet_ids = lookup(v.runner_config, "subnet_ids", null) != null ? [module.base.vpc.private_subnets[0]] : null
+            vpc_id     = lookup(v.runner_config, "vpc_id", null) != null ? module.base.vpc.vpc_id : null
             ami = merge(
               v.runner_config.ami,
               {

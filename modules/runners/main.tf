@@ -42,8 +42,8 @@ locals {
     filter                = var.ami_filter
     owners                = var.ami_owners
     id_ssm_parameter_name = var.ami_id_ssm_parameter_name
-    id_ssm_parameter_arn = null
-    kms_key_arn          = var.ami_kms_key_arn
+    id_ssm_parameter_arn  = null
+    kms_key_arn           = var.ami_kms_key_arn
   }
   ami_kms_key_arn           = local.ami_config.kms_key_arn != null ? local.ami_config.kms_key_arn : ""
   ami_filter                = merge(local.default_ami[var.runner_os], local.ami_config.filter)

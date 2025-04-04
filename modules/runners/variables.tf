@@ -1,11 +1,11 @@
 variable "ami" {
   description = "AMI configuration for the action runner instances"
   type = object({
-    filter                   = optional(map(list(string)), { state = ["available"] })
-    owners                   = optional(list(string), ["amazon"])
-    id_ssm_parameter_name    = optional(string, null)
-    id_ssm_parameter_arn     = optional(string, null)
-    kms_key_arn             = optional(string, null)
+    filter                = optional(map(list(string)), { state = ["available"] })
+    owners                = optional(list(string), ["amazon"])
+    id_ssm_parameter_name = optional(string, null)
+    id_ssm_parameter_arn  = optional(string, null)
+    kms_key_arn           = optional(string, null)
   })
   default = null
 }

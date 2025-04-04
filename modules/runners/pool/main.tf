@@ -189,13 +189,13 @@ resource "aws_iam_role" "scheduler" {
   permissions_boundary = var.config.role_permissions_boundary
 
   assume_role_policy = data.aws_iam_policy_document.scheduler_assume.json
-
-  inline_policy {
-    name   = "terraform"
-    policy = data.aws_iam_policy_document.scheduler.json
-  }
-
   tags = var.config.tags
+}
+
+resource "aws_iam_role_policy" "scheduler" {
+  name   = "terraform"
+  role   = aws_iam_role.scheduler.name
+  policy = data.aws_iam_policy_document.scheduler.json
 }
 
 resource "aws_scheduler_schedule" "pool" {

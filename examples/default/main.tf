@@ -142,14 +142,6 @@ module "runners" {
   # enable CMK instead of aws managed key for encryptions
   # kms_key_arn = aws_kms_key.github.arn
 
-  # pool_runner_owner = "philips-test-runners"
-  # pool_config = [{
-  #   size                         = 1
-  #   schedule_expression = "cron(0/3 14 * * ? *)" # every 3 minutes between 14:00 and 15:00
-  #   schedule_expression_timezone = "Europe/Amsterdam"
-
-  # }]
-
 }
 
 module "webhook_github_app" {

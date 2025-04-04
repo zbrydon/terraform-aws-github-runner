@@ -39,11 +39,10 @@ locals {
 
   # Handle AMI configuration from either the new object or old variables
   ami_config = var.ami != null ? var.ami : {
-    filter                = var.ami_filter
-    owners                = var.ami_owners
-    id_ssm_parameter_name = var.ami_id_ssm_parameter_name
-    id_ssm_parameter_arn  = null
-    kms_key_arn           = var.ami_kms_key_arn
+    filter               = var.ami_filter
+    owners               = var.ami_owners
+    id_ssm_parameter_arn = null
+    kms_key_arn          = var.ami_kms_key_arn
   }
   ami_kms_key_arn           = local.ami_config.kms_key_arn != null ? local.ami_config.kms_key_arn : ""
   ami_filter                = merge(local.default_ami[var.runner_os], local.ami_config.filter)

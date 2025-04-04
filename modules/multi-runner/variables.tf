@@ -66,20 +66,11 @@ variable "multi_runner_config" {
         http_put_response_hop_limit = 1
       })
       ami = optional(object({
-        filter                = optional(map(list(string)), { state = ["available"] })
-        owners                = optional(list(string), ["amazon"])
-        id_ssm_parameter_name = optional(string, null)
-        id_ssm_parameter_arn  = optional(string, null)
-        kms_key_arn           = optional(string, null)
-      }), null)
-      # Deprecated: Use ami object instead
-      ami = optional(object({
-        filter                = optional(map(list(string)), { state = ["available"] })
-        owners                = optional(list(string), ["amazon"])
-        id_ssm_parameter_name = optional(string, null)
-        id_ssm_parameter_arn  = optional(string, null)
-        kms_key_arn           = optional(string, null)
-      }), null)
+        filter               = optional(map(list(string)), { state = ["available"] })
+        owners               = optional(list(string), ["amazon"])
+        id_ssm_parameter_arn = optional(string, null)
+        kms_key_arn          = optional(string, null)
+      }), null) # Defaults to null, in which case the module falls back to individual AMI variables (deprecated)
       # Deprecated: Use ami object instead
       ami_filter                              = optional(map(list(string)), { state = ["available"] })
       ami_owners                              = optional(list(string), ["amazon"])
@@ -187,6 +178,7 @@ variable "multi_runner_config" {
         runner_os: "The EC2 Operating System type to use for action runner instances (linux,windows)."
         runner_architecture: "The platform architecture of the runner instance_type."
         runner_metadata_options: "(Optional) Metadata options for the ec2 runner instances."
+        ami: "(Optional) AMI configuration for the action runner instances. This object allows you to specify all AMI-related settings in one place."
         ami_filter: "(Optional) List of maps used to create the AMI filter for the action runner AMI. By default amazon linux 2 is used."
         ami_owners: "(Optional) The list of owners used to select the AMI of action runner instances."
         create_service_linked_role_spot: (Optional) create the serviced linked role for spot instances that is required by the scale-up lambda.

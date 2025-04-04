@@ -91,6 +91,7 @@ resource "aws_iam_role_policy" "pool" {
     github_app_key_base64_arn      = var.config.github_app_parameters.key_base64.arn
     kms_key_arn                    = var.config.kms_key_arn
     ami_kms_key_arn                = var.config.ami_kms_key_arn
+    ssm_ami_id_parameter_arn       = var.config.ami_id_ssm_parameter_arn
   })
 }
 

@@ -65,6 +65,22 @@ variable "multi_runner_config" {
         http_tokens                 = "required"
         http_put_response_hop_limit = 1
       })
+      ami = optional(object({
+        filter                   = optional(map(list(string)), { state = ["available"] })
+        owners                   = optional(list(string), ["amazon"])
+        id_ssm_parameter_name    = optional(string, null)
+        id_ssm_parameter_arn     = optional(string, null)
+        kms_key_arn             = optional(string, null)
+      }), null)
+      # Deprecated: Use ami object instead
+      ami = optional(object({
+        filter                   = optional(map(list(string)), { state = ["available"] })
+        owners                   = optional(list(string), ["amazon"])
+        id_ssm_parameter_name    = optional(string, null)
+        id_ssm_parameter_arn     = optional(string, null)
+        kms_key_arn             = optional(string, null)
+      }), null)
+      # Deprecated: Use ami object instead
       ami_filter                              = optional(map(list(string)), { state = ["available"] })
       ami_owners                              = optional(list(string), ["amazon"])
       ami_id_ssm_parameter_arn                = optional(string, null)

@@ -37,9 +37,17 @@ locals {
     "linux"   = "${path.module}/templates/start-runner.sh"
   }
 
-  ami_kms_key_arn           = var.ami_kms_key_arn != null ? var.ami_kms_key_arn : ""
-  ami_filter                = merge(local.default_ami[var.runner_os], var.ami_filter)
-  ami_id_ssm_module_managed = var.ami_id_ssm_parameter_arn == null
+  # Handle AMI configuration from either the new object or old variables
+  ami_config = var.ami != null ? var.ami : {
+    filter                = var.ami_filter
+    owners                = var.ami_owners
+    id_ssm_parameter_name = var.ami_id_ssm_parameter_name
+    id_ssm_parameter_arn  = var.ami_id_ssm_parameter_arn
+    kms_key_arn          = var.ami_kms_key_arn
+  }
+  ami_kms_key_arn           = local.ami_config.kms_key_arn != null ? local.ami_config.kms_key_arn : ""
+  ami_filter                = merge(local.default_ami[var.runner_os], local.ami_config.filter)
+  ami_id_ssm_module_managed = local.ami_config.id_ssm_parameter_arn == null
 
   enable_job_queued_check = var.enable_job_queued_check == null ? !var.enable_ephemeral_runners : var.enable_job_queued_check
 
@@ -82,7 +90,7 @@ data "aws_ami" "runner" {
     }
   }
 
-  owners = var.ami_owners
+  owners = local.ami_config.owners
 }
 
 resource "aws_ssm_parameter" "runner_ami_id" {

@@ -20,3 +20,5 @@ runner_config:
       - Windows_Server-2022-English-Full-ECS_Optimized-*
     state:
       - available
+allow_list:
+  - git@github.com:github-aws-runners/terraform-aws-github-runner.git

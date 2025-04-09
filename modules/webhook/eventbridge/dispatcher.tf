@@ -47,6 +47,7 @@ resource "aws_lambda_function" "dispatcher" {
         PARAMETER_RUNNER_MATCHER_CONFIG_PATH = var.config.ssm_parameter_runner_matcher_config.name
         PARAMETER_RUNNER_MATCHER_VERSION     = var.config.ssm_parameter_runner_matcher_config.version # enforce cold start after Changes in SSM parameter
         REPOSITORY_ALLOW_LIST                = jsonencode(var.config.repository_white_list)
+        ALLOW_LIST                           = jsonencode(var.config.allow_list)
       } : k => v if v != null
     }
   }

@@ -47,6 +47,7 @@ module "direct" {
     matcher_config_parameter_store_tier   = var.matcher_config_parameter_store_tier,
     api_gw_source_arn                     = "${aws_apigatewayv2_api.webhook.execution_arn}/*/*/${local.webhook_endpoint}"
     ssm_parameter_runner_matcher_config   = aws_ssm_parameter.runner_matcher_config
+    allow_list                            = var.allow_list
   }
 }
 

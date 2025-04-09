@@ -39,4 +39,11 @@ module "webhook" {
   aws_partition             = var.aws_partition
 
   log_level = var.log_level
+
+  allow_list = [
+    {
+      for name, config in var.multi_runner_config :
+      name => config.runner_config.allow_list
+    }
+  ]
 }

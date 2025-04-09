@@ -33,9 +33,9 @@ variable "enable_organization_runners" {
 
 variable "github_app" {
   description = <<EOF
-  GitHub app parameters, see your github app. 
+  GitHub app parameters, see your github app.
   You can optionally create the SSM parameters yourself and provide the ARN and name here, through the `*_ssm` attributes.
-  If you chose to provide the configuration values directly here, 
+  If you chose to provide the configuration values directly here,
   please ensure the key is the base64-encoded `.pem` file (the output of `base64 app.private-key.pem`, not the content of `private-key.pem`).
   Note: the provided SSM parameters arn and name have a precedence over the actual value (i.e `key_base64_ssm` has a precedence over `key_base64` etc).
   EOF

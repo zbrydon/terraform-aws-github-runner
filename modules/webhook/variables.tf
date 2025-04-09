@@ -214,3 +214,12 @@ EOF
     accept_events = optional(list(string), null)
   })
 }
+
+variable "allow_list" {
+  description = "List of allowed github repositories."
+  type        = list(map(list(string)))
+  default     = []
+}
+
+
+

@@ -19,7 +19,15 @@ export async function dispatch(
 }
 
 function validateRepoInAllowList(event: WorkflowJobEvent, config: ConfigDispatcher) {
-  if (config.repositoryAllowList.length > 0 && !config.repositoryAllowList.includes(event.repository.full_name)) {
+  const isGloballyAllowed =
+    config.repositoryAllowList.length > 0 && !config.repositoryAllowList.includes(event.repository.full_name);
+  const isClusterAllowed = config.allowList.length > 0 && !config.allowList.includes(event.repository.full_name);
+
+  if (isClusterAllowed) {
+    logger.warn(`Repository ${event.repository.full_name} not in allow list`);
+    throw new ValidationError(403, `Repository ${event.repository.full_name} not in cluster allow list`);
+  }
+  if (isGloballyAllowed) {
     logger.info(`Received event from unauthorized repository ${event.repository.full_name}`);
     throw new ValidationError(403, `Received event from unauthorized repository ${event.repository.full_name}`);
   }

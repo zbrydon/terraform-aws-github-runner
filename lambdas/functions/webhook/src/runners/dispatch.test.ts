@@ -58,6 +58,16 @@ describe('Dispatcher', () => {
       expect(sendActionRequest).not.toHaveBeenCalled();
     });
 
+    it.only('should not handle workflow_job events from unlisted repositories', async () => {
+      const event = workFlowJobEvent as unknown as WorkflowJobEvent;
+      config = await createConfig(['NotCodertocat/Hello-World'], runnerConfig, ['some-other-repo']);
+      console.log('config: ', config);
+      await expect(dispatch(event, 'push', config)).rejects.toMatchObject({
+        statusCode: 403,
+      });
+      expect(sendActionRequest).not.toHaveBeenCalled();
+    });
+
     it('should handle workflow_job events with a valid installation id', async () => {
       config = await createConfig(['github-aws-runners/terraform-aws-github-runner']);
       const event = { ...workFlowJobEvent, installation: { id: 123 } } as unknown as WorkflowJobEvent;
@@ -240,9 +250,16 @@ function mockSSMResponse(runnerConfigInput?: RunnerConfig) {
   });
 }
 
-async function createConfig(repositoryAllowList?: string[], runnerConfig?: RunnerConfig): Promise<ConfigDispatcher> {
+async function createConfig(
+  repositoryAllowList?: string[],
+  runnerConfig?: RunnerConfig,
+  allowList?: string[],
+): Promise<ConfigDispatcher> {
   if (repositoryAllowList) {
     process.env.REPOSITORY_ALLOW_LIST = JSON.stringify(repositoryAllowList);
+  }
+  if (allowList) {
+    process.env.ALLOW_LIST = JSON.stringify(allowList);
   }
   ConfigDispatcher.reset();
   mockSSMResponse(runnerConfig);

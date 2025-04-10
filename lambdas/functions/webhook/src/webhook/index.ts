@@ -23,10 +23,6 @@ export async function publishForRunners(
 
   const { event, eventType } = readEvent(headers, body);
 
-  if (config.allowList.length && !config.allowList.includes(event.repository.ssh_url)) {
-    logger.warn(`Repository ${event.repository.ssh_url} not in allow list`);
-    return { statusCode: 403, body: `Repository ${event.repository.ssh_url} not in allow list` };
-  }
   logger.info(`Github event ${event.action} accepted for ${event.repository.full_name}`);
   if (checkBodySizeResult.sizeExceeded) {
     // We only warn for large event, when moving the event bridge we can only can accept events up to 256KB

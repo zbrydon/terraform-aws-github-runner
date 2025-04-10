@@ -25,7 +25,7 @@ export async function publishForRunners(
 
   if (config.allowList.length && !config.allowList.includes(event.repository.ssh_url)) {
     logger.warn(`Repository ${event.repository.ssh_url} not in allow list`);
-    throw new ValidationError(403, `Repository ${event.repository.ssh_url} not in allow list`);
+    return { statusCode: 403, body: `Repository ${event.repository.ssh_url} not in allow list` };
   }
   logger.info(`Github event ${event.action} accepted for ${event.repository.full_name}`);
   if (checkBodySizeResult.sizeExceeded) {

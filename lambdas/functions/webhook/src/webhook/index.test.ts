@@ -87,7 +87,7 @@ describe('handle GitHub webhook events', () => {
       });
     });
 
-    it('should reject with a 403 if the repository is not allowed', async () => {
+    it('should resolve with a 403 if the repository is not allowed', async () => {
       const event = JSON.stringify({
         ...workFlowJobEvent,
         repository: {
@@ -108,9 +108,9 @@ describe('handle GitHub webhook events', () => {
           event,
           updatedConfig,
         ),
-      ).rejects.toMatchObject({
+      ).resolves.toMatchObject({
         statusCode: 403,
-        message: 'Repository ssh://notallowed not in allow list',
+        body: 'Repository ssh://notallowed not in allow list',
       });
     });
 

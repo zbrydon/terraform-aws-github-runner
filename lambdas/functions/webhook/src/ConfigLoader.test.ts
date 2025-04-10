@@ -93,7 +93,7 @@ describe('ConfigLoader Tests', () => {
 
   describe('ConfigWebhook', () => {
     it('should load config successfully', async () => {
-      process.env.REPOSITORY_ALLOW_LIST = '["repo1", "repo2"]';
+      process.env.REPOSITORY_ALLOW_LIST = '{12345":["repo1", "repo2"]}';
       process.env.PARAMETER_GITHUB_APP_WEBHOOK_SECRET = '/path/to/webhook/secret';
       process.env.PARAMETER_RUNNER_MATCHER_CONFIG_PATH = '/path/to/matcher/config';
       const matcherConfig = [
@@ -203,7 +203,7 @@ describe('ConfigLoader Tests', () => {
 
   describe('ConfigDispatcher', () => {
     it('should load config successfully', async () => {
-      process.env.REPOSITORY_ALLOW_LIST = '["repo1", "repo2"]';
+      process.env.REPOSITORY_ALLOW_LIST = '{"12345":["repo1", "repo2"]}';
       process.env.PARAMETER_RUNNER_MATCHER_CONFIG_PATH = '/path/to/matcher/config';
 
       const matcherConfig: RunnerMatcherConfig[] = [
@@ -266,7 +266,7 @@ describe('ConfigLoader Tests', () => {
     });
 
     it('should throw an error if runner matcher config is empty.', async () => {
-      process.env.REPOSITORY_ALLOW_LIST = '["repo1", "repo2"]';
+      process.env.REPOSITORY_ALLOW_LIST = '{"12345":["repo1", "repo2"]}';
       process.env.PARAMETER_RUNNER_MATCHER_CONFIG_PATH = '/path/to/matcher/config';
 
       vi.mocked(getParameter).mockImplementation(async (paramPath: string) => {

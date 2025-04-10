@@ -24,8 +24,6 @@ export async function directWebhook(event: APIGatewayEvent, context: Context): P
   let result: Response;
   try {
     const config: ConfigWebhook = await ConfigWebhook.load();
-    const allowList = config.allowList;
-    logger.debug('Allow list', { allowList });
     result = await publishForRunners(headersToLowerCase(event.headers), event.body as string, config);
   } catch (e) {
     logger.error(`Failed to handle webhook event`, { error: e });

@@ -46,6 +46,6 @@ variable "config" {
       arn     = string
       version = string
     })
-    allow_list = list(map(list(string)))
+    allow_list = map(list(string))
   })
 }

@@ -92,11 +92,11 @@ export class ConfigWebhook extends BaseConfig {
   matcherConfig: RunnerMatcherConfig[] = [];
   webhookSecret: string = '';
   workflowJobEventSecondaryQueue: string = '';
-  allowList: string[] = [];
+  allowList: Record<string, string[]> = {};
 
   async loadConfig(): Promise<void> {
     this.loadEnvVar(process.env.REPOSITORY_ALLOW_LIST, 'repositoryAllowList', []);
-    this.loadEnvVar(process.env.ALLOW_LIST, 'allowList', []);
+    this.loadEnvVar(process.env.ALLOW_LIST, 'allowList', {});
 
     await Promise.all([
       this.loadParameter(process.env.PARAMETER_RUNNER_MATCHER_CONFIG_PATH, 'matcherConfig'),
@@ -127,12 +127,12 @@ export class ConfigDispatcher extends BaseConfig {
   repositoryAllowList: string[] = [];
   matcherConfig: RunnerMatcherConfig[] = [];
   workflowJobEventSecondaryQueue: string = ''; // Deprecated
-  allowList: string[] = [];
+  allowList: Record<string, string[]> = {};
 
   async loadConfig(): Promise<void> {
     this.loadEnvVar(process.env.REPOSITORY_ALLOW_LIST, 'repositoryAllowList', []);
     await this.loadParameter(process.env.PARAMETER_RUNNER_MATCHER_CONFIG_PATH, 'matcherConfig');
-    this.loadEnvVar(process.env.ALLOW_LIST, 'allowList', []);
+    this.loadEnvVar(process.env.ALLOW_LIST, 'allowList', {});
 
     validateRunnerMatcherConfig(this);
   }

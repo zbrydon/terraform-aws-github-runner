@@ -21,7 +21,12 @@ export async function dispatch(
 function validateRepoInAllowList(event: WorkflowJobEvent, config: ConfigDispatcher) {
   const isGloballyAllowed =
     config.repositoryAllowList.length > 0 && !config.repositoryAllowList.includes(event.repository.full_name);
-  const isClusterAllowed = config.allowList.length > 0 && !config.allowList.includes(event.repository.full_name);
+
+  const requestedCluster = event.workflow_job.labels[0];
+
+  const clusterList = config.allowList[requestedCluster];
+
+  const isClusterAllowed = clusterList && clusterList.length > 0 && !clusterList.includes(event.repository.full_name);
 
   if (isClusterAllowed) {
     logger.warn(`Repository ${event.repository.full_name} not in allow list`);

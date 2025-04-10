@@ -217,8 +217,8 @@ EOF
 
 variable "allow_list" {
   description = "List of allowed github repositories."
-  type        = list(map(list(string)))
-  default     = []
+  type        = map(list(string))
+  default     = {}
 }
 
 

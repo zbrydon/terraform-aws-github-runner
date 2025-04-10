@@ -47,6 +47,6 @@ variable "config" {
       version = string
     })
     accept_events = optional(list(string), null)
-    allow_list    = list(map(list(string)))
+    allow_list    = map(list(string))
   })
 }

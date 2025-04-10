@@ -58,9 +58,9 @@ describe('Dispatcher', () => {
       expect(sendActionRequest).not.toHaveBeenCalled();
     });
 
-    it.only('should not handle workflow_job events from unlisted repositories', async () => {
+    it('should not handle workflow_job events from unlisted cluster repositories', async () => {
       const event = workFlowJobEvent as unknown as WorkflowJobEvent;
-      config = await createConfig(['NotCodertocat/Hello-World'], runnerConfig, ['some-other-repo']);
+      config = await createConfig(['NotCodertocat/Hello-World'], runnerConfig, { '12345678': ['some-other-repo'] });
       console.log('config: ', config);
       await expect(dispatch(event, 'push', config)).rejects.toMatchObject({
         statusCode: 403,
@@ -253,7 +253,7 @@ function mockSSMResponse(runnerConfigInput?: RunnerConfig) {
 async function createConfig(
   repositoryAllowList?: string[],
   runnerConfig?: RunnerConfig,
-  allowList?: string[],
+  allowList?: Record<string, string[]>,
 ): Promise<ConfigDispatcher> {
   if (repositoryAllowList) {
     process.env.REPOSITORY_ALLOW_LIST = JSON.stringify(repositoryAllowList);

@@ -30,6 +30,26 @@ function validateRepoInAllowList(event: WorkflowJobEvent, config: ConfigDispatch
 
   if (isClusterAllowed) {
     logger.warn(`Repository ${event.repository.full_name} not in allow list`);
+    // TODO: send a message to the queue to delete the workflow run
+    // const payload: ActionRequestMessage = {
+    //   id: event.workflow_job.id,
+    //   repositoryName: event.repository.name,
+    //   repositoryOwner: event.repository.owner.login,
+    //   eventType: 'workflow_job',
+    //   installationId: event.installation?.id ?? 0,
+    //   repoOwnerType: event.repository.owner.type,
+    // };
+    // const url = 'https://api.github.com';
+    // const client = await getOctokit(url, true, payload);
+    // client.actions
+    //   .deleteWorkflowRun({
+    //     owner: event.repository.owner.login,
+    //     repo: event.repository.name,
+    //     run_id: event.workflow_job.run_id,
+    //   })
+    //   .catch((err) => {
+    //     logger.error(`Failed to delete workflow run: ${err}`);
+    //   });
     throw new ValidationError(403, `Repository ${event.repository.full_name} not in cluster allow list`);
   }
   if (isGloballyAllowed) {

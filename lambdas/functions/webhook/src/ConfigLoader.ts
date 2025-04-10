@@ -127,10 +127,12 @@ export class ConfigDispatcher extends BaseConfig {
   repositoryAllowList: string[] = [];
   matcherConfig: RunnerMatcherConfig[] = [];
   workflowJobEventSecondaryQueue: string = ''; // Deprecated
+  allowList: string[] = [];
 
   async loadConfig(): Promise<void> {
     this.loadEnvVar(process.env.REPOSITORY_ALLOW_LIST, 'repositoryAllowList', []);
     await this.loadParameter(process.env.PARAMETER_RUNNER_MATCHER_CONFIG_PATH, 'matcherConfig');
+    this.loadEnvVar(process.env.ALLOW_LIST, 'allowList', []);
 
     validateRunnerMatcherConfig(this);
   }

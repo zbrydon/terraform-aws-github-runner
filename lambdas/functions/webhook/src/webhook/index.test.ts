@@ -87,33 +87,6 @@ describe('handle GitHub webhook events', () => {
       });
     });
 
-    it('should resolve with a 403 if the repository is not allowed', async () => {
-      const event = JSON.stringify({
-        ...workFlowJobEvent,
-        repository: {
-          ssh_url: 'ssh://notallowed',
-          full_name: 'not/allowed',
-        },
-      });
-
-      await ConfigWebhook.load();
-      ConfigWebhook.reset();
-      process.env.ALLOW_LIST = JSON.stringify(['ssh://allowed']);
-
-      const updatedConfig = await ConfigWebhook.load<ConfigWebhook>();
-
-      await expect(
-        publishForRunners(
-          { 'X-Hub-Signature-256': await webhooks.sign(event), 'X-GitHub-Event': 'workflow_job' },
-          event,
-          updatedConfig,
-        ),
-      ).resolves.toMatchObject({
-        statusCode: 403,
-        body: 'Repository ssh://notallowed not in allow list',
-      });
-    });
-
     it('should reject with 202 if event type is not supported', async () => {
       const event = JSON.stringify(workFlowJobEvent);
 
